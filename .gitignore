@@ -1,0 +1,6 @@
+build
+pre
+test
+**/*.cmd
+**/*.bat
+app/fis-conf.js

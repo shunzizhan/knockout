@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>knockout入门</title>
+  
+<body>
+  <h3>Meal upgrades</h3>
+  <p>Make your flight more bearable by selecting a meal to match your social and economic status.</p>
+  Chosen meal: <select data-bind="options: availableMeals,
+                                optionsText: 'mealName',
+                                value:chosenMeal"></select>
+  <p>
+    You've chosen:
+    <b data-bind="text:chosenMeal().description"></b>
+    (price:<span data-bind="text:formatPrice(chosenMeal().extraCost)"></span>)
+    <!--  enable 控制按钮是否可以点击 -->
+    <button type="button" data-bind="enable:chosenMeal().count > 1">Add</button>
+  </p>
+<!-- bower:js -->
+<!-- endbower -->
+<script src="js/lib/knockout-3.4.0.js"></script>
+<script>
+  // 对价格格式化
+  function formatPrice(price) {
+    return price == 0 ? "Free" : "$" + price.toFixed(2);
+  }
+  var availableMeals = [
+    { mealName: 'Standard', description: 'Dry crusts of bread', extraCost: 0 ,count:2},
+    { mealName: 'Premium', description: 'Fresh bread with cheese', extraCost: 9.95 ,count:0},
+    { mealName: 'Deluxe', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 ,count:20}
+  ];
+  var viewModel = {
+    /* we'll populate this in a moment */
+    chosenMeal:ko.observable(availableMeals[0])
+  };
+
+  ko.applyBindings(viewModel); // Makes Knockout get to work
+</script>
+</body>
+</html>

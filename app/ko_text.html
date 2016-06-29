@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>text 绑定</title>
+  <style type="text/css" media="screen">
+    .hide{
+      /*display: none;*/
+    }
+  </style>
+<body>
+  <!-- 1 正常情况 -->
+  Today's message is: <span data-bind="text: myMessage"></span> 
+  <!--2 传的是数组  -->
+  <div data-bind="text:myArr">
+  </div>
+  <!--3 使用函数或者表达式来决定text值 -->
+  The item is <span data-bind="text: priceRating">span> today.
+<!-- bower:js -->
+<!-- endbower -->
+<script src="js/lib/knockout-3.4.0.js"></script>
+<script>
+  var viewModel = {  
+        myMessage: ko.observable(), // Initially blank  
+        myArr:[{key:11,value:"gsdggd"}],
+        price: ko.observable(24.95)
+    };  
+    viewModel.myMessage("Hello, world!"); // Text appears 
+    // 等价 <spandata-bind="text: price() > 50 ? 'expensive' : 'affordable'">span> 
+    viewModel.priceRating = ko.dependentObservable(function () {  
+        return this.price() >50?"expensive" : "affordable";  
+    }, viewModel); 
+    // viewModel.myMessage("<i>Hello, world!i>");
+    viewModel.myMessage("<i>Hello, world 是否收到该发生!i>");
+    ko.applyBindings(viewModel);
+</script> 
+</body>
+</html>

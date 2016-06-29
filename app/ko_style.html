@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>style 绑定</title>
+  <style type="text/css" media="screen">
+    .profitWarning{
+      color:#f00;
+    }
+    .my-higher{
+      background-color: #ff0;
+    }
+  </style>
+<body>
+<!-- 应用的style的名字不是合法的JavaScript变量命名 -->
+ <div data-bind="style: { color: currentProfit() < 0 ? 'red' : 'black' }"> 
+   Profit Information  
+</div>
+<!-- bower:js -->
+<!-- endbower -->
+<script src="js/lib/knockout-3.4.0.js"></script>
+<script>
+    var viewModel = {  
+        currentProfit: ko.observable(150000)  
+        // Positive value, so initially we don't apply the "profitWarning" class  
+    };  
+ 
+    viewModel.currentProfit(-50);
+    ko.applyBindings(viewModel);
+</script> 
+</body>
+</html>

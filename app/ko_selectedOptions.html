@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title> selectedOptions 绑定</title>
+  <style type="text/css" media="screen">
+    .profitWarning{
+      color:#f00;
+    }
+    .my-higher{
+      background-color: #ff0;
+    }
+  </style>
+<body>
+  Drop-down list
+  <p>Destination country: <select data-bind="options: availableCountries"></select></p> 
+
+ 
+  <p> 
+    Choose some countries you'd like to visit:  
+    <select data-bind="options: availableCountries, selectedOptions: chosenCountries" size="5" multiple="true"></select> 
+  </p>  
+
+  <input data-bind="value: bbb, uniqueName: true"/> 
+<!-- bower:js -->
+<!-- endbower -->
+<script src="js/lib/knockout-3.4.0.js"></script>
+<script>
+
+        // Constructor for an object with two properties  
+    var country =function (name, population) {  
+        this.countryName = name;  
+        this.countryPopulation = population;  
+    };  
+
+    var viewModel = {  
+        availableCountries: ko.observableArray(['France', 'Germany', 'Spain','111','233','qeqrqr']) ,// These are the initial options  
+        chosenCountries: ko.observableArray(['Germany','Spain']),
+        ss: ko.observableArray([  
+            new country("UK", 65000000),  
+            new country("USA", 320000000),  
+            new country("Sweden", 29000000)  
+        ]),  
+        selectedCountry: ko.observable(), // Nothing selected by default 
+        bbb:""
+    };  
+    ko.applyBindings(viewModel);
+</script> 
+</body>
+</html>

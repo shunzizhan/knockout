@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title> check 绑定</title>
+  <style type="text/css" media="screen">
+    .profitWarning{
+      color:#f00;
+    }
+    .my-higher{
+      background-color: #ff0;
+    }
+  </style>
+<body>
+  <p>Send me spam: <input type="checkbox" data-bind="checked: wantsSpam"/></p>   
+
+  <div data-bind="visible: wantsSpam"> 
+      Preferred flavors of spam:  
+      <div><input type="checkbox" value="cherry" data-bind="checked: spamFlavors"/> Cherry</div> 
+      <div><input type="checkbox" value="almond" data-bind="checked: spamFlavors"/> Almond</div> 
+      <div><input type="checkbox" value="msg" data-bind="checked: spamFlavors"/> Monosodium Glutamate</div> 
+  </div> 
+
+  <div data-bind="visible: wantsSpam"> 
+    Preferred flavor of spam(单选):  
+    <div><input type="radio" name="flavorGroup" value="cherry" data-bind="checked: spamFlavor"/> Cherry</div> 
+    <div><input type="radio" name="flavorGroup" value="almond" data-bind="checked: spamFlavor"/> Almond</div> 
+    <div><input type="radio" name="flavorGroup" value="msg" data-bind="checked: spamFlavor"/> Monosodium Glutamate</div> 
+  </div> 
+<!-- bower:js -->
+<!-- endbower -->
+<script src="js/lib/knockout-3.4.0.js"></script>
+<script>
+    var viewModel = {  
+        wantsSpam: ko.observable(true), // Initially checked  
+        spamFlavors: ko.observableArray(["cherry", "almond"]) ,// Initially checks the Cherry and Almond checkboxes
+        spamFlavor:  ko.observable('almond')
+    };  
+     // ... then later ...  
+    // viewModel.wantsSpam(false); // The checkbox becomes unchecked  
+    ko.applyBindings(viewModel);
+</script> 
+</body>
+</html>

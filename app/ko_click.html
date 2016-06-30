@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>click 绑定</title>
+  <style type="text/css" media="screen">
+    .profitWarning{
+      color:#f00;
+    }
+    .my-higher{
+      background-color: #ff0;
+    }
+  </style>
+<body>
+  <div> 
+      You've clicked <span data-bind="text: numberOfClicks"></span> times  
+      <button data-bind="click: incrementClickCounter">Click me</button> 
+  </div>
+  <!-- 例子1 -->
+  <button data-bind="click: function() { viewModel.myFunction(1, 2) }"> 
+    Click me  
+  </button> 
+
+ <!--  <button data-bind="click: this.sss.bind(numberOfClicks())"> 
+    Click me  2
+  </button> 
+  <p data-bind="text:sss"></p> -->
+
+  <div data-bind="click: myDivHandler"> 
+    <button data-bind="click: myButtonHandler, clickBubble: false"> 
+        Click me   clickBubble
+    </button> 
+  </div> 
+<!-- bower:js -->
+<!-- endbower -->
+<script src="js/lib/knockout-3.4.0.js"></script>
+<script>
+    var viewModel = {  
+        numberOfClicks: ko.observable(0),  
+        incrementClickCounter: function () {  
+            var previousCount =this.numberOfClicks();  
+            this.numberOfClicks(previousCount +1);  
+        },
+        myFunction:function(a,b){
+          alert(a+b);
+        },
+        sss:ko.observable(),
+        myDivHandler:function(){
+          alert(0);
+        },
+        myButtonHandler:function(){
+          alert(122121);
+        }
+    }; 
+    ko.applyBindings(viewModel);
+</script> 
+</body>
+</html>

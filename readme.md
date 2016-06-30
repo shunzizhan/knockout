@@ -74,3 +74,52 @@ style绑定是添加或删除一个或多个DOM元素上的style值
 attr 绑定提供了一种方式可以设置DOM元素的任何属性值
 该参数是一个JavaScript对象，属性是你的attribute名称，值是该attribute需要 应用的值。
 应用的属性名字不是合法的JavaScript变量命名 如果你要用的属性名称是data-something的话 解决方案是：在data-something两边加引号作为一个字符串使用
+
+### click 绑定
+click绑定在DOM元素上添加事件句柄以便元素被点击的时候执行定义的JavaScript 函数
+注1：传参数给你的click 句柄
+```javascript 
+<button data-bind="click: function() { viewModel.myFunction(1, 2) }"> 
+    Click me  
+  </button> 
+```
+注2：访问事件源对象
+<button data-bind="click: myFunction">  myFunction: function (event)
+如果你需要的话，可以使用匿名函数的第一个参数传进去，然后在里面调用：
+<button data-bind="click: function(event) { viewModel.myFunction(event, 'param1', 'param2') }"> 
+注3: 允许执行默认事件
+默认情况下，Knockout会阻止冒泡，防止默认的事件继续执行。例如，如果你点击一个a连接，在执行完自定义事件时它不会连接到href地址。这特别有用是因为你的自定义事件主要就是操作你的view model，而不是连接到另外一个页面。
+
+当然，如果你想让默认的事件继续执行，你可以在你click的自定义函数里返回true。
+注4：控制this句柄
+注5：防止事件冒泡 `clickBubble`
+可以通过额外的绑定clickBubble来禁止冒泡
+
+### event 绑定
+大部分情况下是用在keypress，mouseover和mouseout上。
+ <div data-bind="event: { mouseover: enableDetails, mouseout: disableDetails }"> 
+ 你可以声明任何JavaScript函数 – 不一定非要是view model里的函数。你可以声明任意对象上的任何函数，例如： event: { mouseover: someObject.someFunction }。
+
+View model上的函数在用的时候有一点点特殊，就是不需要引用对象的，直接引用函数本身就行了，比如直接写event: { mouseover: enableDetails } 就可以了，而无需写成： event: { mouseover: viewModel.enableDetails } (尽管是合法的)。
+### submit 绑定
+浏览器会执行你定义的绑定函数而不会提交这个form表单到服务器上。可以很好地解释这个，使用submit绑定就是为了处理view model的自定义函数的，而不是再使用普通的HTML form表单。如果你要继续执行默认的HTML form表单操作，你可以在你的submit句柄里返回true。
+
+### enable 绑定
+enable绑定使DOM元素只有在参数值为 true的时候才enabled。在form表单元素input，select，和textarea上非常有用。
+非布尔值会被解析成布尔值。例如0和null被解析成false，21和非null对象被解析给true。
+
+### disable 绑定
+disable绑定使DOM元素只有在参数值为 true的时候才disabled。在form表单元素input，select，和textarea上非常有用。
+
+disable绑定和enable绑定正好相反，详情请参考enable绑定。
+
+### value 绑定
+当用户编辑表单控件的时候， view model对应的属性值会自动更新。同样，当你更新view model属性的时候，相对应的元素值在页面上也会自动更新。
+
+其它参数
+valueUpdate
+如果你使用valueUpdate参数，那就是意味着KO将使用自定义的事件而不是默认的离开焦点事件。下面是一些最常用的选项：
+`change`(默认值) - 当失去焦点的时候更新view model的值，或者是<select>
+`keyup` – 当用户敲完一个字符以后立即更新view model。
+`keypress` – 当用户正在敲一个字符但没有释放键盘的时候就立即更新view model。不像 keyup，这个更新和keydown是一样的。
+`afterkeydown` – 当用户开始输入字符的时候就更新view model。主要是捕获浏览器的keydown事件或异步handle事件。

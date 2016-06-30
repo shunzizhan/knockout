@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title> value 绑定</title>
+  <style type="text/css" media="screen">
+    .profitWarning{
+      color:#f00;
+    }
+    .my-higher{
+      background-color: #ff0;
+    }
+  </style>
+<body>
+  <p>Login name: <input data-bind="value: userName"/></p> 
+  <p>Password: <input type="password" data-bind="value: userPassword"/></p> 
+
+  <!-- updatevalue -->
+  <p>Your value: <input data-bind="value: someValue, valueUpdate: 'afterkeydown'"/></p> 
+  <p>You have typed: <span data-bind="text: someValue"></span></p> <!-- updates in real-time -->
+<!-- bower:js -->
+<!-- endbower -->
+<script src="js/lib/knockout-3.4.0.js"></script>
+<script>
+    var viewModel = {  
+        userName: ko.observable("shunzizhan@163.com"),        // Initially blank  
+        userPassword: ko.observable("abc"), // Prepopulate  
+        someValue: ko.observable("edit me")  
+    };  
+    ko.applyBindings(viewModel);
+</script> 
+</body>
+</html>

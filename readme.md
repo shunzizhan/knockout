@@ -123,3 +123,21 @@ valueUpdate
 `keyup` – 当用户敲完一个字符以后立即更新view model。
 `keypress` – 当用户正在敲一个字符但没有释放键盘的时候就立即更新view model。不像 keyup，这个更新和keydown是一样的。
 `afterkeydown` – 当用户开始输入字符的时候就更新view model。主要是捕获浏览器的keydown事件或异步handle事件。
+
+### checked 绑定
+checked绑定是关联到checkable的form表单控件到view model上 - 例如checkbox（<input type='checkbox'>）或者radio button（<input type='radio'>） 。当用户check关联的form表单控件的时候，view model对应的值也会自动更新，相反，如果view model的值改变了，那控件元素的check/uncheck状态也会跟着改变。
+
+### options 绑定
+options绑定控制什么样的options在drop-down列表里（例如：<select>）或者 multi-select 列表里 （例如：<select size='6'>）显示。此绑定不能用于<select>之外的元素。关联的数据应是数组（或者是observable数组），<select>会遍历显示数组里的所有的项。
+`optionsCaption`值是字符串型，作为默认项显示
+<select data-bind='options: myOptions, optionsCaption: "Select an item...", value: myChosenValue'></select>
+KO会在所有选项上加上这一个项，并且设置value值为undefined。所以，如果myChosenValue被设置为undefined（默认是observable的），那么上述的第一个项就会被选中。
+`optionsText`列表的text来显示
+`optionsValue`该<option>的value值
+`selectedOptions`
+
+### selectedOptions 绑定
+selectedOptions绑定用于控制multi-select列表已经被选择的元素，用在使用options绑定的<select>元素上。
+
+### uniqueName 绑定
+uniqueName绑定确保所绑定的元素有一个非空的name属性。如果该元素没有name属性，那绑定会给它设置一个unique的字符串值作为name属性。

@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title> 循环嵌套&对象取值</title>
+  <style type="text/css" media="screen">
+    .profitWarning{
+      color:#f00;
+    }
+    .my-higher{
+      background-color: #ff0;
+    }
+  </style>
+<body>
+  <!-- ko foreach:{data:aa,as:"item"} -->
+  <p>
+    <div data-bind="text:item.value"></div>
+    <span data-bind="visible:item.uid.length>0">去过的人员</span>
+    <!-- ko foreach:{data:item.uid,as:"list"} -->
+    <a data-bind="text:viewModel.bb()[list].name"></a>
+    <!-- /ko -->
+  </p>
+  <!-- /ko -->
+
+<!-- bower:js -->
+<!-- endbower -->
+<script src="js/lib/knockout-3.4.0.js"></script>
+<script>
+
+    var viewModel = {  
+        aa:[{key:1,value:"中国",uid:['1']},{key:2,value:"美国",uid:[]},{key:1,value:"英国",uid:['1','2']}],
+        bb:ko.observableArray()
+    };
+    var sss={
+          '1':{
+            name:"张三",
+            age:24,
+            sex:"男"
+          },
+          '2':{
+            name:"rose",
+            age:26,
+            sex:"女"
+          }
+        }
+    viewModel.bb(sss);
+    ko.applyBindings(viewModel);
+</script> 
+</body>
+</html>

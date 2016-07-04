@@ -141,3 +141,7 @@ selectedOptions绑定用于控制multi-select列表已经被选择的元素，�
 
 ### uniqueName 绑定
 uniqueName绑定确保所绑定的元素有一个非空的name属性。如果该元素没有name属性，那绑定会给它设置一个unique的字符串值作为name属性。
+
+## tips
+### 循环嵌套
+### 对象用observableArray监视
